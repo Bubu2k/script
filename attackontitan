@@ -72,7 +72,7 @@ UIGradient.Color = ColorSequence.new{
 }
 UIGradient.Parent = UIStroke
 
--- Tiêu đề Menu: Twwz-Sailor Piece
+-- Tiêu đề Menu: SCRIPT
 Title.Parent = MainFrame
 Title.Text = "ATTACK ON TITAN"
 Title.Font = Enum.Font.GothamBold
