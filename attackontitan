@@ -74,7 +74,7 @@ UIGradient.Parent = UIStroke
 
 -- Tiêu đề Menu: Twwz-Sailor Piece
 Title.Parent = MainFrame
-Title.Text = "Twwz-Sailor Piece"
+Title.Text = "ATTACK ON TITAN"
 Title.Font = Enum.Font.GothamBold
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.TextSize = 18
