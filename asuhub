@@ -116,7 +116,7 @@ Instance.new("UICorner", SubmitBtn).CornerRadius = UDim.new(0, 10)
 
 -- 1. Sao chép và hiện dòng chữ xanh nhẹ
 CopyBtn.MouseButton1Click:Connect(function()
-    setclipboard("https://funlink.io/Ptz0vtT")
+    setclipboard("https://funlink.io/Pu112_S")
     CopyBtn.Text = "ĐÃ COPY LINK!"
     
     -- Hiện thông báo theo yêu cầu: "dán lên trình duyệt để getkey" màu xanh nhẹ
