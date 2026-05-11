@@ -9,7 +9,7 @@ local SubmitBtn = Instance.new("TextButton")
 local UIStroke = Instance.new("UIStroke")
 local UIGradient = Instance.new("UIGradient")
 
--- Setup ScreenGui (Để hiện trên mọi game)
+-- Setup ScreenGui
 ScreenGui.Parent = game:GetService("CoreGui")
 ScreenGui.Name = "PremiumKeySystem"
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -40,7 +40,7 @@ UIGradient.Color = ColorSequence.new{
 }
 UIGradient.Parent = UIStroke
 
--- Tiêu đề (Phong cách hiện đại)
+-- Tiêu đề
 Title.Parent = MainFrame
 Title.Text = "PREMIUM SYSTEM"
 Title.Font = Enum.Font.GothamBold
@@ -49,7 +49,7 @@ Title.TextSize = 20
 Title.Size = UDim2.new(1, 0, 0, 60)
 Title.BackgroundTransparency = 1
 
--- Ô nhập Key (Thiết kế tinh tế)
+-- Ô nhập Key
 KeyInput.Parent = MainFrame
 KeyInput.PlaceholderText = "Enter your key..."
 KeyInput.Text = ""
@@ -65,7 +65,7 @@ local InputStroke = Instance.new("UIStroke", KeyInput)
 InputStroke.Color = Color3.fromRGB(255, 255, 255)
 InputStroke.Transparency = 0.8
 
--- Nút Sao chép (Style Gradient Blue)
+-- Nút Sao chép Link
 CopyBtn.Parent = MainFrame
 CopyBtn.Text = "GET KEY LINK"
 CopyBtn.Font = Enum.Font.GothamBold
@@ -75,7 +75,7 @@ CopyBtn.Position = UDim2.new(0.1, 0, 0.6, 5)
 CopyBtn.Size = UDim2.new(0.8, 0, 0, 30)
 Instance.new("UICorner", CopyBtn).CornerRadius = UDim.new(0, 8)
 
--- Nút Kích hoạt (Premium Look)
+-- Nút Kích hoạt
 SubmitBtn.Parent = MainFrame
 SubmitBtn.Text = "ACTIVATE SCRIPT"
 SubmitBtn.Font = Enum.Font.GothamBold
@@ -85,7 +85,7 @@ SubmitBtn.Position = UDim2.new(0.1, 0, 0.8, 5)
 SubmitBtn.Size = UDim2.new(0.8, 0, 0, 35)
 Instance.new("UICorner", SubmitBtn).CornerRadius = UDim.new(0, 10)
 
--- HIỆU ỨNG TƯƠNG TÁC (TWEEN)
+-- HIỆU ỨNG TWEEN
 local TweenService = game:GetService("TweenService")
 
 local function HoverEffect(obj, colorIn, colorOut)
@@ -110,18 +110,18 @@ end)
 
 SubmitBtn.MouseButton1Click:Connect(function()
     local userKey = KeyInput.Text
-    local correctKey = "oneday4"
+    local correctKey = "oneday4" -- Key của bạn
     
     if userKey == correctKey then
         SubmitBtn.Text = "SUCCESS!"
         SubmitBtn.BackgroundColor3 = Color3.fromRGB(0, 255, 150)
         
-        -- Hiệu ứng tắt mượt mà
+        -- Hiệu ứng tắt UI
         TweenService:Create(MainFrame, TweenInfo.new(0.5), {Size = UDim2.new(0,0,0,0), BackgroundTransparency = 1}):Play()
         task.wait(0.5)
         ScreenGui:Destroy()
         
-        -- Load Script của bạn
+        -- CHẠY SCRIPT SURVIVE ZOMBIE ARENA
         loadstring(game:HttpGet("https://rawscripts.net/raw/Survive-Zombie-Arena-No-Key-Free-212308"))()
     else
         SubmitBtn.Text = "INVALID KEY!"
