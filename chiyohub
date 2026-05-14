@@ -1,0 +1,131 @@
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local Title = Instance.new("TextLabel")
+local KeyInput = Instance.new("TextBox")
+local CopyBtn = Instance.new("TextButton")
+local SubmitBtn = Instance.new("TextButton")
+local UIStroke = Instance.new("UIStroke")
+local UIGradient = Instance.new("UIGradient")
+
+-- Setup ScreenGui (Hiển thị trên mọi Map)
+ScreenGui.Parent = game:GetService("CoreGui")
+ScreenGui.Name = "PremiumKeySystem"
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+-- Main Frame (Giao diện Kính mờ hiện đại)
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 25)
+MainFrame.BackgroundTransparency = 0.1
+MainFrame.Position = UDim2.new(0.5, -160, 0.5, -110)
+MainFrame.Size = UDim2.new(0, 320, 0, 220)
+MainFrame.Active = true
+MainFrame.Draggable = true
+
+UICorner.CornerRadius = UDim.new(0, 20)
+UICorner.Parent = MainFrame
+
+-- Viền Neon RGB
+UIStroke.Parent = MainFrame
+UIStroke.Thickness = 2.5
+UIStroke.Transparency = 0.2
+UIStroke.Color = Color3.fromRGB(255, 255, 255)
+
+UIGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 255, 255)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(170, 0, 255)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 255, 255))
+}
+UIGradient.Parent = UIStroke
+
+-- Tiêu đề Menu
+Title.Parent = MainFrame
+Title.Text = "PREMIUM SYSTEM"
+Title.Font = Enum.Font.GothamBold
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextSize = 20
+Title.Size = UDim2.new(1, 0, 0, 60)
+Title.BackgroundTransparency = 1
+
+-- Ô nhập Key
+KeyInput.Parent = MainFrame
+KeyInput.PlaceholderText = "Enter your key..."
+KeyInput.Text = ""
+KeyInput.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+KeyInput.BackgroundTransparency = 0.95
+KeyInput.Position = UDim2.new(0.1, 0, 0.35, 0)
+KeyInput.Size = UDim2.new(0.8, 0, 0, 40)
+KeyInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+KeyInput.Font = Enum.Font.GothamSemibold
+KeyInput.TextSize = 14
+Instance.new("UICorner", KeyInput).CornerRadius = UDim.new(0, 10)
+local InputStroke = Instance.new("UIStroke", KeyInput)
+InputStroke.Color = Color3.fromRGB(255, 255, 255)
+InputStroke.Transparency = 0.8
+
+-- Nút Sao chép Link Get Key
+CopyBtn.Parent = MainFrame
+CopyBtn.Text = "GET KEY LINK"
+CopyBtn.Font = Enum.Font.GothamBold
+CopyBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 50)
+CopyBtn.TextColor3 = Color3.fromRGB(0, 200, 255)
+CopyBtn.Position = UDim2.new(0.1, 0, 0.6, 5)
+CopyBtn.Size = UDim2.new(0.8, 0, 0, 30)
+Instance.new("UICorner", CopyBtn).CornerRadius = UDim.new(0, 8)
+
+-- Nút Kích hoạt Script
+SubmitBtn.Parent = MainFrame
+SubmitBtn.Text = "ACTIVATE SCRIPT"
+SubmitBtn.Font = Enum.Font.GothamBold
+SubmitBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+SubmitBtn.TextColor3 = Color3.fromRGB(15, 15, 25)
+SubmitBtn.Position = UDim2.new(0.1, 0, 0.8, 5)
+SubmitBtn.Size = UDim2.new(0.8, 0, 0, 35)
+Instance.new("UICorner", SubmitBtn).CornerRadius = UDim.new(0, 10)
+
+-- Hiệu ứng Hover mượt mà
+local TweenService = game:GetService("TweenService")
+local function HoverEffect(obj, colorIn, colorOut)
+    obj.MouseEnter:Connect(function()
+        TweenService:Create(obj, TweenInfo.new(0.3), {BackgroundColor3 = colorIn}):Play()
+    end)
+    obj.MouseLeave:Connect(function()
+        TweenService:Create(obj, TweenInfo.new(0.3), {BackgroundColor3 = colorOut}):Play()
+    end)
+end
+
+HoverEffect(CopyBtn, Color3.fromRGB(50, 50, 80), Color3.fromRGB(30, 30, 50))
+HoverEffect(SubmitBtn, Color3.fromRGB(200, 200, 200), Color3.fromRGB(255, 255, 255))
+
+-- XỬ LÝ LOGIC
+CopyBtn.MouseButton1Click:Connect(function()
+    setclipboard("https://funlink.io/PuX4Ltj")
+    CopyBtn.Text = "LINK COPIED!"
+    task.wait(2)
+    CopyBtn.Text = "GET KEY LINK"
+end)
+
+SubmitBtn.MouseButton1Click:Connect(function()
+    local userKey = KeyInput.Text
+    local correctKey = "oneday9"
+    
+    if userKey == correctKey then
+        SubmitBtn.Text = "SUCCESS!"
+        SubmitBtn.BackgroundColor3 = Color3.fromRGB(0, 255, 150)
+        
+        -- Animation đóng mượt mà
+        TweenService:Create(MainFrame, TweenInfo.new(0.5), {Size = UDim2.new(0,0,0,0), BackgroundTransparency = 1}):Play()
+        task.wait(0.5)
+        ScreenGui:Destroy()
+        
+        -- THỰC THI SCRIPT: CHIYO
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/kaisenlmao/loader/refs/heads/main/chiyo.lua"))()
+    else
+        SubmitBtn.Text = "INVALID KEY!"
+        SubmitBtn.TextColor3 = Color3.fromRGB(255, 0, 0)
+        task.wait(1.5)
+        SubmitBtn.Text = "ACTIVATE SCRIPT"
+        SubmitBtn.TextColor3 = Color3.fromRGB(15, 15, 25)
+    end
+end)
