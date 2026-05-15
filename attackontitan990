@@ -120,7 +120,7 @@ SubmitBtn.MouseButton1Click:Connect(function()
         ScreenGui:Destroy()
         
         -- THỰC THI SCRIPT: EclipseHub
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/nocturnalxen/EclipseHubAotr/refs/heads/main/eclipsemain", true))()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/1f179b0ee06c80b8ce8fdc93ccc55d16.lua"))()
     else
         SubmitBtn.Text = "INVALID KEY!"
         SubmitBtn.TextColor3 = Color3.fromRGB(255, 0, 0)
