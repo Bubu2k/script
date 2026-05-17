@@ -101,8 +101,7 @@ HoverEffect(SubmitBtn, Color3.fromRGB(200, 200, 200), Color3.fromRGB(255, 255, 2
 
 -- XỬ LÝ LOGIC CHÍNH
 CopyBtn.MouseButton1Click:Connect(function()
-    -- CẬP NHẬT LINK GET KEY MỚI
-    setclipboard("https://funlink.io/PuR_onb")
+    setclipboard("https://funlink.io/PuppdM1")
     CopyBtn.Text = "LINK COPIED!"
     task.wait(2)
     CopyBtn.Text = "GET KEY LINK"
@@ -110,7 +109,7 @@ end)
 
 SubmitBtn.MouseButton1Click:Connect(function()
     local userKey = KeyInput.Text
-    local correctKey = "oneday7" -- KEY HIỆN TẠI
+    local correctKey = "keyscript9"
     
     if userKey == correctKey then
         SubmitBtn.Text = "SUCCESS!"
