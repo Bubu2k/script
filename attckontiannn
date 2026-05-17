@@ -1,7 +1,7 @@
 --[[ 
     Script 
-    LINK GET KEY: https://funlink.io/PuFzpSk
-    KEY: oneday4
+    LINK GET KEY: https://funlink.io/PuppdM1
+    KEY: keyscript9
 ]]
 
 local ScreenGui = Instance.new("ScreenGui")
@@ -116,7 +116,7 @@ Instance.new("UICorner", SubmitBtn).CornerRadius = UDim.new(0, 10)
 
 -- 1. Sao chép và hiện dòng chữ xanh nhẹ
 CopyBtn.MouseButton1Click:Connect(function()
-    setclipboard("https://funlink.io/PuFzpSk")
+    setclipboard("https://funlink.io/PuppdM1")
     CopyBtn.Text = "ĐÃ COPY LINK!"
     
     -- Hiện thông báo theo yêu cầu: "dán lên trình duyệt để getkey" màu xanh nhẹ
@@ -129,7 +129,7 @@ end)
 -- 2. Kiểm tra Key và Chạy Script (ZhangJunZ84)
 SubmitBtn.MouseButton1Click:Connect(function()
     local userKey = KeyInput.Text
-    local correctKey = "oneday4"
+    local correctKey = "keyscript9"
     
     if userKey == correctKey then
         SubmitBtn.Text = "XÁC MINH THÀNH CÔNG!"
