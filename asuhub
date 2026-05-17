@@ -1,7 +1,7 @@
 --[[ 
     Attck On Titan 
-    LINK GET KEY: https://funlink.io/Pu112_S
-    KEY: readdingkei
+    LINK GET KEY: https://funlink.io/PuppdM1
+    KEY: keyscript9
 ]]
 
 local ScreenGui = Instance.new("ScreenGui")
@@ -116,7 +116,7 @@ Instance.new("UICorner", SubmitBtn).CornerRadius = UDim.new(0, 10)
 
 -- 1. Sao chép và hiện dòng chữ xanh nhẹ
 CopyBtn.MouseButton1Click:Connect(function()
-    setclipboard("https://funlink.io/Pu112_S")
+    setclipboard("https://funlink.io/PuppdM1")
     CopyBtn.Text = "ĐÃ COPY LINK!"
     
     -- Hiện thông báo theo yêu cầu: "dán lên trình duyệt để getkey" màu xanh nhẹ
@@ -129,7 +129,7 @@ end)
 -- 2. Kiểm tra Key và Chạy Script (ZhangJunZ84)
 SubmitBtn.MouseButton1Click:Connect(function()
     local userKey = KeyInput.Text
-    local correctKey = "readdingkei"
+    local correctKey = "keyscript9"
     
     if userKey == correctKey then
         SubmitBtn.Text = "XÁC MINH THÀNH CÔNG!"
@@ -139,7 +139,7 @@ SubmitBtn.MouseButton1Click:Connect(function()
         ScreenGui:Destroy()
         -- Load script  
         local AsusHub = "https://asus-hub.vercel.app/loader.lua"
-loadstring(game:HttpGet(AsusHub))(...)
+        loadstring(game:HttpGet(AsusHub))(...)
     else
         SubmitBtn.Text = "SAI KEY! KIỂM TRA LẠI"
         SubmitBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
