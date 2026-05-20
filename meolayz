@@ -1,8 +1,31 @@
 --[[ 
-    PREMIUM CYBERPUNK KEY SYSTEM 2026
-    LINK GET KEY: https://funlink.io/Pu_s2wc
-    KEY: vietnam76
+    PREMIUM CYBERPUNK KEY SYSTEM 2026 - AUTO SYNC EDITION
+    Hệ thống tự động đồng bộ hóa Link & Key từ máy chủ đám mây của bạn
 ]]
+
+-- ĐƯỜNG DẪN RAW CONFIG: Điền link Raw GitHub hoặc Pastebin chứa Link và Key của bạn vào đây
+local Config_URL = "https://raw.githubusercontent.com/Bubu2k/config.txt/refs/heads/main/config.txt" 
+
+---------------------------------------------------------
+-- HỆ THỐNG TỰ ĐỘNG TẢI DỮ LIỆU (KHÔNG CẦN SỬA ĐOẠN DƯỚI)
+---------------------------------------------------------
+local HttpService = game:GetService("HttpService")
+local fetchedLink = "https://funlink.io/Pu_s2wc" -- Link mặc định dự phòng
+local fetchedKey = "vietnam76" -- Key mặc định dự phòng
+
+local success, response = pcall(function()
+    return game:HttpGet(Config_URL)
+end)
+
+if success and response then
+    -- Tách dòng để lấy Link (Dòng 1) và Key (Dòng 2)
+    local lines = {}
+    for line in string.gmatch(response, "[^\r\n]+") do
+        table.insert(lines, line)
+    end
+    if lines[1] then fetchedLink = string.gsub(lines[1], "%s+", "") end
+    if lines[2] then fetchedKey = string.gsub(lines[2], "%s+", "") end
+end
 
 local ScreenGui = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
@@ -18,105 +41,95 @@ local CopyCorner = Instance.new("UICorner")
 local SubmitBtn = Instance.new("TextButton")
 local SubmitCorner = Instance.new("UICorner")
 
--- Khởi tạo ScreenGui bảo mật
 ScreenGui.Parent = game:GetService("CoreGui")
-ScreenGui.Name = "CyberKeySystem_v2"
+ScreenGui.Name = "EclipseKeySystem_v3"
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
--- Hiệu ứng Đổ bóng phát sáng (Glow Shadow)
 DropShadow.Name = "DropShadow"
 DropShadow.Parent = ScreenGui
 DropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
 DropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-DropShadow.Size = UDim2.new(0, 390, 0, 270)
+DropShadow.Size = UDim2.new(0, 410, 0, 290)
 DropShadow.BackgroundTransparency = 1
-DropShadow.Image = "rbxassetid://6015897843" -- Asset đổ bóng cao cấp
-DropShadow.ImageColor3 = Color3.fromRGB(0, 170, 255)
-DropShadow.ImageTransparency = 0.6
+DropShadow.Image = "rbxassetid://6015897843"
+DropShadow.ImageColor3 = Color3.fromRGB(180, 0, 30)
+DropShadow.ImageTransparency = 0.45
 
--- Khung hiển thị chính (Main Frame)
 MainFrame.Name = "MainFrame"
 MainFrame.Parent = DropShadow
 MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-MainFrame.BackgroundColor3 = Color3.fromRGB(11, 11, 18)
-MainFrame.BackgroundTransparency = 0.15
+MainFrame.BackgroundColor3 = Color3.fromRGB(8, 8, 12)
+MainFrame.BackgroundTransparency = 0.08
 MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-MainFrame.Size = UDim2.new(0, 340, 0, 220)
+MainFrame.Size = UDim2.new(0, 350, 0, 230)
 MainFrame.Active = true
 MainFrame.Draggable = true
 
-UICorner.CornerRadius = UDim.new(0, 20)
+UICorner.CornerRadius = UDim.new(0, 24)
 UICorner.Parent = MainFrame
 
--- Viền Neon RGB Chuyển Màu Đỉnh Cao
 UIStroke.Parent = MainFrame
 UIStroke.Thickness = 3
 UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 UIStroke.Color = Color3.fromRGB(255, 255, 255)
 
 UIGradient.Color = ColorSequence.new{
-    ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 240, 255)),   -- Cyan sáng
-    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 0, 130)), -- Pink Cyber
-    ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 240, 255))    -- Cyan sáng
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 40)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(40, 0, 5)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 40))
 }
 UIGradient.Parent = UIStroke
 
--- Tiêu đề (Title)
 Title.Parent = MainFrame
-Title.Text = "PREMIUM SYSTEM"
+Title.Text = "SECURE ACCESS"
 Title.Font = Enum.Font.GothamBold
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-Title.TextSize = 22
-Title.Size = UDim2.new(1, 0, 0, 55)
+Title.TextSize = 20
+Title.Size = UDim2.new(1, 0, 0, 60)
 Title.BackgroundTransparency = 1
 
--- Hộp nhập Key (Textbox)
 KeyInput.Parent = MainFrame
-KeyInput.PlaceholderText = "Nhập mã bảo mật của bạn tại đây..."
+KeyInput.PlaceholderText = "Nhập mã key truy cập..."
 KeyInput.Text = ""
-KeyInput.BackgroundColor3 = Color3.fromRGB(20, 20, 35)
-KeyInput.BackgroundTransparency = 0.4
-KeyInput.Position = UDim2.new(0.08, 0, 0.32, 0)
-KeyInput.Size = UDim2.new(0.84, 0, 0, 42)
+KeyInput.BackgroundColor3 = Color3.fromRGB(16, 16, 22)
+KeyInput.BackgroundTransparency = 0.2
+KeyInput.Position = UDim2.new(0.08, 0, 0.33, 0)
+KeyInput.Size = UDim2.new(0.84, 0, 0, 45)
 KeyInput.TextColor3 = Color3.fromRGB(255, 255, 255)
 KeyInput.Font = Enum.Font.GothamSemibold
 KeyInput.TextSize = 14
-Instance.new("UICorner", KeyInput).CornerRadius = UDim.new(0, 10)
+Instance.new("UICorner", KeyInput).CornerRadius = UDim.new(0, 12)
 
 InputStroke.Parent = KeyInput
 InputStroke.Thickness = 1.5
-InputStroke.Color = Color3.fromRGB(255, 255, 255)
-InputStroke.Transparency = 0.85
+InputStroke.Color = Color3.fromRGB(255, 0, 40)
+InputStroke.Transparency = 0.7
 
--- Nút Lấy Key (Copy Button)
 CopyBtn.Parent = MainFrame
-CopyBtn.Text = "SAO CHÉP ĐƯỜNG DẪN GET KEY"
+CopyBtn.Text = "GET KEY LINK"
 CopyBtn.Font = Enum.Font.GothamBold
-CopyBtn.TextSize = 11
-CopyBtn.BackgroundColor3 = Color3.fromRGB(28, 28, 45)
-CopyBtn.TextColor3 = Color3.fromRGB(0, 210, 255)
-CopyBtn.Position = UDim2.new(0.08, 0, 0.58, 5)
+CopyBtn.TextSize = 12
+CopyBtn.BackgroundColor3 = Color3.fromRGB(22, 14, 15)
+CopyBtn.TextColor3 = Color3.fromRGB(255, 80, 90)
+CopyBtn.Position = UDim2.new(0.08, 0, 0.60, 5)
 CopyBtn.Size = UDim2.new(0.84, 0, 0, 32)
 
-CopyCorner.CornerRadius = UDim.new(0, 8)
+CopyCorner.CornerRadius = UDim.new(0, 10)
 CopyCorner.Parent = CopyBtn
 
--- Nút Kích hoạt (Submit Button)
 SubmitBtn.Parent = MainFrame
-SubmitBtn.Text = "XÁC MINH NGAY"
+SubmitBtn.Text = "ACTIVATE SCRIPT"
 SubmitBtn.Font = Enum.Font.GothamBold
 SubmitBtn.TextSize = 14
-SubmitBtn.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+SubmitBtn.BackgroundColor3 = Color3.fromRGB(255, 0, 40)
 SubmitBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-SubmitBtn.Position = UDim2.new(0.08, 0, 0.78, 10)
-SubmitBtn.Size = UDim2.new(0.84, 0, 0, 38)
+SubmitBtn.Position = UDim2.new(0.08, 0, 0.79, 10)
+SubmitBtn.Size = UDim2.new(0.84, 0, 0, 40)
 
-SubmitCorner.CornerRadius = UDim.new(0, 12)
+SubmitCorner.CornerRadius = UDim.new(0, 14)
 SubmitCorner.Parent = SubmitBtn
 
---- HỆ THỐNG XỬ LÝ hiệu ứng ANIMATION (TWEEN) ---
 local TweenService = game:GetService("TweenService")
-
 local function PlayHover(button, colorIn, sizeIn, colorOut, sizeOut)
     button.MouseEnter:Connect(function()
         TweenService:Create(button, TweenInfo.new(0.25, Enum.EasingStyle.Quad), {BackgroundColor3 = colorIn, Size = sizeIn}):Play()
@@ -126,82 +139,72 @@ local function PlayHover(button, colorIn, sizeIn, colorOut, sizeOut)
     end)
 end
 
-PlayHover(CopyBtn, Color3.fromRGB(40, 40, 65), UDim2.new(0.86, 0, 0, 34), Color3.fromRGB(28, 28, 45), UDim2.new(0.84, 0, 0, 32))
-PlayHover(SubmitBtn, Color3.fromRGB(0, 190, 255), UDim2.new(0.86, 0, 0, 40), Color3.fromRGB(0, 150, 255), UDim2.new(0.84, 0, 0, 38))
+PlayHover(CopyBtn, Color3.fromRGB(40, 20, 22), UDim2.new(0.86, 0, 0, 34), Color3.fromRGB(22, 14, 15), UDim2.new(0.84, 0, 0, 32))
+PlayHover(SubmitBtn, Color3.fromRGB(190, 0, 25), UDim2.new(0.86, 0, 0, 42), Color3.fromRGB(255, 0, 40), UDim2.new(0.84, 0, 0, 40))
 
--- Hàm thông báo Notification dạng Toast hiện đại ở góc trên màn hình
 local function AdvancedNotify(msg, color)
     local NotifyGui = Instance.new("ScreenGui", game:GetService("CoreGui"))
     local Box = Instance.new("Frame", NotifyGui)
     local Text = Instance.new("TextLabel", Box)
-    
-    Box.Size = UDim2.new(0, 300, 0, 45)
-    Box.Position = UDim2.new(0.5, -150, 0, -50)
-    Box.BackgroundColor3 = Color3.fromRGB(15, 15, 25)
-    Box.BackgroundTransparency = 0.2
-    Instance.new("UICorner", Box).CornerRadius = UDim.new(0, 10)
+    Box.Size = UDim2.new(0, 280, 0, 45)
+    Box.Position = UDim2.new(0.5, -140, 0, -50)
+    Box.BackgroundColor3 = Color3.fromRGB(12, 12, 16)
+    Box.BackgroundTransparency = 0.1
+    Instance.new("UICorner", Box).CornerRadius = UDim.new(0, 12)
     local S = Instance.new("UIStroke", Box)
     S.Color = color
     S.Thickness = 2
-    
     Text.Size = UDim2.new(1, 0, 1, 0)
     Text.BackgroundTransparency = 1
     Text.Text = msg
     Text.TextColor3 = Color3.fromRGB(255, 255, 255)
     Text.Font = Enum.Font.GothamBold
     Text.TextSize = 13
-    
-    -- Slide in down animation
-    TweenService:Create(Box, TweenInfo.new(0.4, Enum.EasingStyle.Back), {Position = UDim2.new(0.5, -150, 0, 40)}):Play()
-    task.wait(3)
-    -- Slide out up animation
-    TweenService:Create(Box, TweenInfo.new(0.4, Enum.EasingStyle.Quad), {Position = UDim2.new(0.5, -150, 0, -50)}):Play()
+    TweenService:Create(Box, TweenInfo.new(0.4, Enum.EasingStyle.Back), {Position = UDim2.new(0.5, -140, 0, 40)}):Play()
+    task.wait(2.5)
+    TweenService:Create(Box, TweenInfo.new(0.4, Enum.EasingStyle.Quad), {Position = UDim2.new(0.5, -140, 0, -50)}):Play()
     task.wait(0.4)
     NotifyGui:Destroy()
 end
 
---- XỬ LÝ LOGIC CHẠY CODE ---
-
--- 1. Sự kiện nút Copy liên kết mới
+-- 1. Xử lý nút Copy (Lấy link tự động đồng bộ)
 CopyBtn.MouseButton1Click:Connect(function()
-    setclipboard("https://funlink.io/Pu_s2wc")
-    CopyBtn.Text = "ĐÃ SAO CHÉP THÀNH CÔNG!"
-    AdvancedNotify("Đã lưu liên kết Get Key vào bộ nhớ tạm!", Color3.fromRGB(0, 210, 255))
+    setclipboard(fetchedLink)
+    CopyBtn.Text = "COPIED URL!"
+    AdvancedNotify("Đã sao chép link get key mới nhất!", Color3.fromRGB(255, 0, 40))
     task.wait(2)
-    CopyBtn.Text = "SAO CHÉP ĐƯỜNG DẪN GET KEY"
+    CopyBtn.Text = "GET KEY LINK"
 end)
 
--- 2. Sự kiện nút Xác minh key mới
+-- 2. Xử lý nút Submit (Kiểm tra key tự động đồng bộ)
 SubmitBtn.MouseButton1Click:Connect(function()
     local userKey = KeyInput.Text
-    local correctKey = "vietnam76"
     
-    if userKey == correctKey then
-        SubmitBtn.Text = "XÁC MINH THÀNH CÔNG!"
-        SubmitBtn.BackgroundColor3 = Color3.fromRGB(0, 255, 127)
-        SubmitBtn.TextColor3 = Color3.fromRGB(11, 11, 18)
+    if userKey == fetchedKey then
+        SubmitBtn.Text = "ACCESS GRANTED!"
+        SubmitBtn.BackgroundColor3 = Color3.fromRGB(0, 220, 110)
+        SubmitBtn.TextColor3 = Color3.fromRGB(8, 8, 12)
         
-        -- Hoạt họa thu nhỏ đóng UI chuyên nghiệp
         TweenService:Create(MainFrame, TweenInfo.new(0.4, Enum.EasingStyle.Back), {Size = UDim2.new(0, 0, 0, 0), BackgroundTransparency = 1}):Play()
         TweenService:Create(DropShadow, TweenInfo.new(0.4), {ImageTransparency = 1}):Play()
         task.wait(0.4)
         DropShadow:Destroy()
         
-        -- Thực thi script gốc được bảo lưu hoàn toàn
+        -- ĐÃ CẬP NHẬT: Thực thi script V1.lua mới từ GitHub của bạn
         local success, err = pcall(function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/MeoLazy/Script/refs/heads/main/V1.lua"))()
         end)
         
         if not success then
-            AdvancedNotify("Lỗi thực thi mã nguồn chính!", Color3.fromRGB(255, 0, 50))
+            AdvancedNotify("Lỗi nạp mã nguồn chính!", Color3.fromRGB(255, 0, 40))
             warn("Lỗi Script: " .. tostring(err))
         end
     else
-        SubmitBtn.Text = "MÃ KHÓA KHÔNG CHÍNH XÁC!"
-        SubmitBtn.BackgroundColor3 = Color3.fromRGB(255, 0, 75)
-        AdvancedNotify("Mã Key bạn nhập chưa đúng, vui lòng thử lại!", Color3.fromRGB(255, 0, 75))
+        SubmitBtn.Text = "ACCESS DENIED!"
+        SubmitBtn.BackgroundColor3 = Color3.fromRGB(150, 0, 20)
+        AdvancedNotify("Mã khóa không chính xác hoặc đã hết hạn!", Color3.fromRGB(255, 0, 40))
         task.wait(2)
-        SubmitBtn.Text = "XÁC MINH NGAY"
-        SubmitBtn.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+        SubmitBtn.Text = "ACTIVATE SCRIPT"
+        SubmitBtn.BackgroundColor3 = Color3.fromRGB(255, 0, 40)
     end
 end)
