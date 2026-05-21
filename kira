@@ -1,12 +1,13 @@
 --[[ 
-    PREMIUM CYBERPUNK KEY SYSTEM 2026 - AUTO SYNC EDITION
-    Đã tích hợp Script: Attack On Titan : Revolution
+    PREMIUM CYBERPUNK KEY SYSTEM 2026 - AUTO SYNC & AUTO SAVE EDITION
+    Tự động lưu và đồng bộ hóa Key / Script cho lần sau
 ]]
 
 local Config_URL = "https://raw.githubusercontent.com/Bubu2k/config.txt/refs/heads/main/config.txt" 
+local File_Name = "EclipseKeyCache.txt" -- Tên file lưu trữ key trong thư mục workspace
 
 ---------------------------------------------------------
--- HỆ THỐNG TỰ ĐỘNG TẢI DỮ LIỆU
+-- HỆ THỐNG TỰ ĐỘNG TẢI DỮ LIỆU CHỦ
 ---------------------------------------------------------
 local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
@@ -29,7 +30,32 @@ if success and response then
 end
 
 ---------------------------------------------------------
--- KHỞI TẠO GIAO DIỆN CHUẨN (FIXED PARENTING)
+-- HÀM KÍCH HOẠT SCRIPT CHÍNH
+---------------------------------------------------------
+local function ExecuteMainScript()
+    local loadSuccess, err = pcall(function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/ans974829-star/KiraScripts/refs/heads/main/Attack%20On%20Titan%20%3A%20Revolution'))()
+    end)
+    
+    if not loadSuccess then
+        warn("Lỗi Script: " .. tostring(err))
+    end
+end
+
+---------------------------------------------------------
+-- KIỂM TRA CHỨC NĂNG LƯU KEY TỰ ĐỘNG (AUTO LOGIN)
+---------------------------------------------------------
+if readfile and isfile and isfile(File_Name) then
+    local savedKey = readfile(File_Name)
+    if savedKey == fetchedKey then
+        -- Nếu key đã lưu trùng khớp với key server, tự động chạy luôn không hiện UI
+        ExecuteMainScript()
+        return -- Kết thúc script tại đây, không tạo giao diện nữa
+    end
+end
+
+---------------------------------------------------------
+-- KHỞI TẠO GIAO DIỆN CHUẨN (NẾU CHƯA CÓ KEY HOẶC KEY HẾT HẠN)
 ---------------------------------------------------------
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "EclipseKeySystem_v3"
@@ -135,7 +161,7 @@ SubmitCorner.CornerRadius = UDim.new(0, 14)
 SubmitCorner.Parent = SubmitBtn
 
 ---------------------------------------------------------
--- TÍNH NĂNG KÉO THẢ MƯỢT MÀ
+-- HỆ THỐNG KÉO THẢ MƯỢT MÀ
 ---------------------------------------------------------
 local dragging, dragInput, dragStart, startPos
 local function update(input)
@@ -165,7 +191,7 @@ UserInputService.InputChanged:Connect(function(input)
 end)
 
 ---------------------------------------------------------
--- HIỆU ỨNG HOVER & THÔNG BÁO
+-- HIỆU ỨNG THÔNG BÁO & HOVER
 ---------------------------------------------------------
 local function PlayHover(button, colorIn, sizeIn, colorOut, sizeOut)
     button.MouseEnter:Connect(function()
@@ -229,21 +255,21 @@ SubmitBtn.MouseButton1Click:Connect(function()
         SubmitBtn.BackgroundColor3 = Color3.fromRGB(0, 220, 110)
         SubmitBtn.TextColor3 = Color3.fromRGB(8, 8, 12)
         
-        -- Hiệu ứng biến mất mượt mài cho UI
+        -- TIẾN HÀNH LƯU KEY CHO LẦN SAU
+        if writefile then
+            pcall(function()
+                writefile(File_Name, userKey)
+            end)
+        end
+        
+        -- Hiệu ứng ẩn UI
         TweenService:Create(MainFrame, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.In), {Size = UDim2.new(0, 0, 0, 0), BackgroundTransparency = 1}):Play()
         TweenService:Create(DropShadow, TweenInfo.new(0.3), {ImageTransparency = 1}):Play()
         task.wait(0.4)
         ScreenGui:Destroy()
         
-        -- THỰC THI SCRIPT MỚI CỦA BẠN (Attack On Titan : Revolution)
-        local loadSuccess, err = pcall(function()
-            loadstring(game:HttpGet('https://raw.githubusercontent.com/ans974829-star/KiraScripts/refs/heads/main/Attack%20On%20Titan%20%3A%20Revolution'))()
-        end)
-        
-        if not loadSuccess then
-            AdvancedNotify("Lỗi nạp mã nguồn chính!", Color3.fromRGB(255, 0, 40))
-            warn("Lỗi Script: " .. tostring(err))
-        end
+        -- Chạy script chính
+        ExecuteMainScript()
     else
         SubmitBtn.Text = "ACCESS DENIED!"
         SubmitBtn.BackgroundColor3 = Color3.fromRGB(150, 0, 20)
