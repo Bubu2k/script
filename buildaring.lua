@@ -36,7 +36,7 @@ end
 local function ExecuteMainScript()
     local loadSuccess, err = pcall(function()
         -- Thay thế script cũ bằng script mới của bạn tại đây
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/femmehomme90-web/scripts/refs/heads/main/Build-A-Ring-Farm"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/lamduck2005/RobloxScript/master/build-a-ring-farm.lua", true))()
     end)
     
     if not loadSuccess then
