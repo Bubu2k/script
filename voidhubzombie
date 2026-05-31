@@ -1,4 +1,4 @@
-local Config_URL = "https://raw.githubusercontent.com/Bubu2k/key/refs/heads/main/keydamin"
+local Config_URL = "https://raw.githubusercontent.com/Bubu2k/config.txt/refs/heads/main/config.txt"
 local Save_File = "EclipseKeyCache.txt"
 
 ---
