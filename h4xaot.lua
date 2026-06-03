@@ -63,7 +63,7 @@ end
 -- GUI
 
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "LuxyHubKeySystem"
+ScreenGui.Name = "KeySystem"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.Parent = game:GetService("CoreGui")
 
@@ -86,7 +86,7 @@ local Title = Instance.new("TextLabel")
 Title.Parent = MainFrame
 Title.Size = UDim2.new(1,0,0,50)
 Title.BackgroundTransparency = 1
-Title.Text = "LUXY HUB ACCESS"
+Title.Text = "Ấn GeT Key Để Lấy Key"
 Title.Font = Enum.Font.GothamBold
 Title.TextSize = 22
 Title.TextColor3 = Color3.new(1,1,1)
