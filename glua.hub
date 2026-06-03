@@ -1,0 +1,162 @@
+local Config_URL = "https://raw.githubusercontent.com/kadit9999/config.txt/refs/heads/main/config.txt"
+local Save_File = "EclipseKeyCache.txt"
+
+local GetKeyLink = "https://funlink.io/Pu_s2wc"
+local CurrentKey = "vietnam76"
+
+-- LOAD CONFIG
+
+local success, response = pcall(function()
+    return game:HttpGet(Config_URL)
+end)
+
+if success and response then
+    local lines = {}
+
+    for line in string.gmatch(response, "[^\r\n]+") do
+        table.insert(lines, line)
+    end
+
+    if lines[1] then
+        GetKeyLink = string.gsub(lines[1], "%s+", "")
+    end
+
+    if lines[2] then
+        CurrentKey = string.gsub(lines[2], "%s+", "")
+    end
+end
+
+-- MAIN SCRIPT
+
+local function ExecuteMainScript()
+    local ok, err = pcall(function()
+        loadstring(game:HttpGet("https://api.glua.xyz/loader"))()
+    end)
+
+    if not ok then
+        warn("Script Error: " .. tostring(err))
+    end
+end
+
+-- AUTO LOGIN
+
+if readfile and isfile and isfile(Save_File) then
+    local savedKey = readfile(Save_File)
+
+    if savedKey == CurrentKey then
+        ExecuteMainScript()
+        return
+    end
+end
+
+-- GUI
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "LuxyHubKeySystem"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = game:GetService("CoreGui")
+
+local MainFrame = Instance.new("Frame")
+MainFrame.Parent = ScreenGui
+MainFrame.Size = UDim2.new(0,350,0,220)
+MainFrame.Position = UDim2.new(0.5,-175,0.5,-110)
+MainFrame.BackgroundColor3 = Color3.fromRGB(15,15,20)
+
+local Corner = Instance.new("UICorner")
+Corner.CornerRadius = UDim.new(0,20)
+Corner.Parent = MainFrame
+
+local Stroke = Instance.new("UIStroke")
+Stroke.Parent = MainFrame
+Stroke.Thickness = 2
+Stroke.Color = Color3.fromRGB(255,0,40)
+
+local Title = Instance.new("TextLabel")
+Title.Parent = MainFrame
+Title.Size = UDim2.new(1,0,0,50)
+Title.BackgroundTransparency = 1
+Title.Text = "LUXY HUB ACCESS"
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 22
+Title.TextColor3 = Color3.new(1,1,1)
+
+local KeyBox = Instance.new("TextBox")
+KeyBox.Parent = MainFrame
+KeyBox.Size = UDim2.new(0.84,0,0,40)
+KeyBox.Position = UDim2.new(0.08,0,0.30,0)
+KeyBox.PlaceholderText = "Enter Key..."
+KeyBox.Text = ""
+KeyBox.TextColor3 = Color3.new(1,1,1)
+KeyBox.BackgroundColor3 = Color3.fromRGB(25,25,30)
+
+local KeyCorner = Instance.new("UICorner")
+KeyCorner.CornerRadius = UDim.new(0,10)
+KeyCorner.Parent = KeyBox
+
+local GetKeyBtn = Instance.new("TextButton")
+GetKeyBtn.Parent = MainFrame
+GetKeyBtn.Size = UDim2.new(0.84,0,0,35)
+GetKeyBtn.Position = UDim2.new(0.08,0,0.55,0)
+GetKeyBtn.Text = "GET KEY"
+GetKeyBtn.BackgroundColor3 = Color3.fromRGB(35,35,40)
+GetKeyBtn.TextColor3 = Color3.new(1,1,1)
+
+local GetCorner = Instance.new("UICorner")
+GetCorner.CornerRadius = UDim.new(0,10)
+GetCorner.Parent = GetKeyBtn
+
+local VerifyBtn = Instance.new("TextButton")
+VerifyBtn.Parent = MainFrame
+VerifyBtn.Size = UDim2.new(0.84,0,0,40)
+VerifyBtn.Position = UDim2.new(0.08,0,0.75,0)
+VerifyBtn.Text = "VERIFY"
+VerifyBtn.BackgroundColor3 = Color3.fromRGB(255,0,40)
+VerifyBtn.TextColor3 = Color3.new(1,1,1)
+
+local VerifyCorner = Instance.new("UICorner")
+VerifyCorner.CornerRadius = UDim.new(0,12)
+VerifyCorner.Parent = VerifyBtn
+
+-- GET KEY
+
+GetKeyBtn.MouseButton1Click:Connect(function()
+    if setclipboard then
+        setclipboard(GetKeyLink)
+        GetKeyBtn.Text = "COPIED!"
+        task.wait(2)
+        GetKeyBtn.Text = "GET KEY"
+    end
+end)
+
+-- VERIFY
+
+VerifyBtn.MouseButton1Click:Connect(function()
+
+    if KeyBox.Text == CurrentKey then
+
+        if writefile then
+            pcall(function()
+                writefile(Save_File, CurrentKey)
+            end)
+        end
+
+        VerifyBtn.Text = "SUCCESS"
+        VerifyBtn.BackgroundColor3 = Color3.fromRGB(0,200,100)
+
+        task.wait(1)
+
+        ScreenGui:Destroy()
+        ExecuteMainScript()
+
+    else
+
+        VerifyBtn.Text = "INVALID KEY"
+        VerifyBtn.BackgroundColor3 = Color3.fromRGB(180,0,0)
+
+        task.wait(2)
+
+        VerifyBtn.Text = "VERIFY"
+        VerifyBtn.BackgroundColor3 = Color3.fromRGB(255,0,40)
+
+    end
+end)
